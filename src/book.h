@@ -3,4 +3,5 @@ struct Book {
     char author[50];
     int pages;
     int year_of_publication;
+    struct Book* next;
 };

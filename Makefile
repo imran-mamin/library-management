@@ -1,2 +1,2 @@
-hellomake: src/main.c
-	gcc -o hellomake src/main.c -I.
+booklibrary: src/main.c src/library.c
+	gcc -o booklibrary src/main.c src/library.c -I.
