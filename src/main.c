@@ -10,7 +10,6 @@ int process_command(struct Library* lib, int args_count, char c, const char* nam
     switch (c)
     {
         case 'A':
-            // TODO: Add a book.
             if (args_count != 5) {
                 printf("Invalid input. Please enter 'command;name;author;pages;year of publication' \n");
             } else {
@@ -23,6 +22,9 @@ int process_command(struct Library* lib, int args_count, char c, const char* nam
         case 'Q':
             printf("Stop command encountered.\n");
             result = 1;
+            break;
+        case 'S':
+            show_library(lib);
             break;
         case 'U':
             // TODO: Update the information about the book.
@@ -39,6 +41,7 @@ int process_command(struct Library* lib, int args_count, char c, const char* nam
 int main() {
     struct Library* lib = init_library();
 
+    // Get the input from the user.
     while (1) {
         char command = '\0';
         char name[NAME_SIZE];

@@ -43,6 +43,19 @@ void add_book(struct Library* lib, const char* name, const char* author, int pag
     }
 }
 
+void show_library(struct Library* lib) {
+    printf("The library:\n");
+
+    struct Book* b = lib->first_book;
+    
+    while (b != NULL) {
+        printf("%s --> ", b->name);
+        b = b->next;
+    }
+
+    printf("NULL\n");
+}
+
 void free_memory(struct Library* lib) {
     struct Book* curr_book = lib->first_book;
 
