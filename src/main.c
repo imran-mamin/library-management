@@ -5,7 +5,7 @@
 
 #define NAME_SIZE 50
 
-int process_command(int args_count, char c, const char* name, const char* author, const int pages, const int year_of_publication) {
+int process_command(struct Library* lib, int args_count, char c, const char* name, const char* author, int pages, int year_of_publication) {
     int result = -1;
     switch (c)
     {
@@ -15,6 +15,7 @@ int process_command(int args_count, char c, const char* name, const char* author
                 printf("Invalid input. Please enter 'command;name;author;pages;year of publication' \n");
             } else {
                 printf("Add a book\n");
+                add_book(lib, name, author, pages, year_of_publication);
                 result = 0;
             }
 
@@ -56,12 +57,14 @@ int main() {
         }
         */
 
-        const int res_process_command = process_command(args_count, command, name, author, pages, year_of_publication);
+        const int res_process_command = process_command(lib, args_count, command, name, author, pages, year_of_publication);
 
         if (res_process_command == 1) {
             break;
         }
     }
 
+    // Free the allocated memory: library, books.
+    free_memory(lib);
     return 0;
 }
