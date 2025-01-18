@@ -7,8 +7,8 @@ struct Library {
 };
 
 /* Will initialize the library with some default book. */
-const struct Library* init_library();
+struct Library* init_library();
 
-void add_book(struct Library* lib, const char* name, const char* author, const int pages, const int year_of_publication);
+void add_book(struct Library* lib, const char* name, const char* author, int pages, int year_of_publication);
 
 void free_memory(struct Library* lib);

@@ -36,14 +36,15 @@ int process_command(int args_count, char c, const char* name, const char* author
 }
 
 int main() {
-    const struct Library* lib = init_library();
-    char command = '\0';
-    char name[NAME_SIZE];
-    char author[NAME_SIZE];
-    int pages = -1;
-    int year_of_publication = -1;
+    struct Library* lib = init_library();
+
+    while (1) {
+        char command = '\0';
+        char name[NAME_SIZE];
+        char author[NAME_SIZE];
+        int pages = -1;
+        int year_of_publication = -1;
     
-    while (command != 'Q') {
         printf("Please, enter the command that you want to execute\n");
         int args_count = scanf(" %c;%49[^;];%49[^;];%d;%d", &command, name, author, &pages, &year_of_publication);
        
