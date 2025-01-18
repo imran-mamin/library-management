@@ -6,7 +6,7 @@
 #define NAME_SIZE 50
 
 int process_command(struct Library* lib, int args_count, char c, const char* name, const char* author, int pages, int year_of_publication) {
-    int result = -1;
+    int result = 1;
     switch (c)
     {
         case 'A':
@@ -15,13 +15,16 @@ int process_command(struct Library* lib, int args_count, char c, const char* nam
             } else {
                 printf("Add a book\n");
                 add_book(lib, name, author, pages, year_of_publication);
-                result = 0;
             }
 
             break;
+        case 'D':
+            // TODO: There should be 4 items in the command, not 5.
+            delete_book(lib, name, author, year_of_publication);
+            break;
         case 'Q':
             printf("Stop command encountered.\n");
-            result = 1;
+            result = 0;
             break;
         case 'S':
             show_library(lib);
@@ -29,7 +32,6 @@ int process_command(struct Library* lib, int args_count, char c, const char* nam
         case 'U':
             // TODO: Update the information about the book.
             printf("Update a book\n");
-            result = 2;
             break;
         default:
             printf("Unknown command. Please, ensure that the command is one of the following: A or U\n");
@@ -62,12 +64,13 @@ int main() {
 
         const int res_process_command = process_command(lib, args_count, command, name, author, pages, year_of_publication);
 
-        if (res_process_command == 1) {
+        if (res_process_command == 0) {
             break;
         }
     }
 
     // Free the allocated memory: library, books.
     free_memory(lib);
+    
     return 0;
 }

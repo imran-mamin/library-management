@@ -40,6 +40,45 @@ void add_book(struct Library* lib, const char* name, const char* author, int pag
         lib->last_book = b;
     } else {
         lib->last_book->next = b;
+        lib->last_book = b;
+    }
+}
+
+void delete_book(struct Library* lib, const char* name, const char* author, int year_of_publication) {
+    struct Book* prev = NULL;
+    struct Book* b = lib->first_book;
+
+    while (b != NULL) {
+        int same_name = (strcmp(name, b->name) == 0);
+        int same_author = (strcmp(author, b->author) == 0);
+        int same_year = (year_of_publication == b->year_of_publication);
+        printf("%d, %d, %d \n", same_name, same_author, same_year);
+        if (same_name && same_author && same_year) {
+            break;
+        }
+        
+        prev = b;
+        b = b->next;
+    }
+
+    if (b == NULL) {
+        printf("The book was not found.\n");
+    } else {
+        // The only book in the library?
+        if ((b->next == NULL) && (prev == NULL)) {
+            lib->first_book = NULL;
+            lib->last_book = NULL;
+        } else if (prev == NULL) { // The first book in the library?
+            lib->first_book = b->next;
+        } else if (b->next == NULL) { // The last book in the library?
+            lib->last_book = prev;
+            prev->next = NULL;
+        } else {
+            prev->next = b->next;
+        }
+        
+        free(b);
+        printf("The book was successfully deleted.\n");
     }
 }
 

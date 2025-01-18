@@ -11,6 +11,8 @@ struct Library* init_library();
 
 void add_book(struct Library* lib, const char* name, const char* author, int pages, int year_of_publication);
 
+void delete_book(struct Library* lib, const char* name, const char* author, int year_of_publication);
+
 void show_library(struct Library* lib);
 
 void free_memory(struct Library* lib);
