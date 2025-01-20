@@ -5,21 +5,74 @@
 
 #define NAME_SIZE 50
 
-int process_command(struct Library* lib, int args_count, char c, const char* name, const char* author, int pages, int year_of_publication, const char* isbn) {
+int process_command(struct Library* lib, char* user_input) {
     int result = 1;
+    const char s[2] = ";";
+    char* token = strtok(user_input, s);
+    char c = (*token); // Read a given command.
+    char isbn[14];
+
     switch (c)
     {
         case 'A':
-            if (args_count != 6) {
+            if (token == NULL) {
                 printf("Invalid input. Please enter 'command;name;author;pages;year of publication;isbn' \n");
-            } else {
-                printf("Add a book\n");
-                add_book(lib, name, author, pages, year_of_publication, isbn);
+                return -1;
             }
 
+            char name[NAME_SIZE];
+            token = strtok(NULL, s);
+            
+            if (token == NULL) {
+                printf("Invalid input. Please enter 'command;name;author;pages;year of publication;isbn' \n");
+                return -1;
+            }
+            
+            strncpy(name, token, sizeof(name) - 1);
+            name[NAME_SIZE - 1] = '\0';
+
+            char author[NAME_SIZE];
+            token = strtok(NULL, s);
+            
+            if (token == NULL) {
+                printf("Invalid input. Please enter 'command;name;author;pages;year of publication;isbn' \n");
+                return -1;
+            }
+            
+            strncpy(author, token, sizeof(author) - 1);
+            author[NAME_SIZE - 1] = '\0';
+
+            token = strtok(NULL, s);
+            if (token == NULL) {
+                printf("Invalid input. Please enter 'command;name;author;pages;year of publication;isbn' \n");
+                return -1;
+            }
+            int pages = (int) (*token);
+            token = strtok(NULL, s);
+            if (token == NULL) {
+                printf("Invalid input. Please enter 'command;name;author;pages;year of publication;isbn' \n");
+                return -1;
+            }
+            int year_of_publication = (int) (*token);
+            
+            token = strtok(NULL, s);
+            if (token == NULL) {
+                printf("Invalid input. Please enter 'command;name;author;pages;year of publication;isbn' \n");
+                return -1;
+            }
+            strncpy(isbn, token, sizeof(isbn) - 1);
+            isbn[13] = '\0';
+            
+            printf("Add a book\n");
+            add_book(lib, name, author, pages, year_of_publication, isbn);
             break;
         case 'D':
-            // TODO: There should be 4 items in the command, not 5.
+            token = strtok(NULL, s);
+            if (token == NULL) {
+                printf("Invalid input. Please enter 'command;isbn'.\n");
+                return -1;
+            }
+            strncpy(isbn, token, sizeof(isbn) - 1);
             delete_book(lib, isbn);
             break;
         case 'Q':
@@ -45,28 +98,15 @@ int main() {
 
     // Get the input from the user.
     while (1) {
-        char command = '\0';
-        char name[NAME_SIZE];
-        char author[NAME_SIZE];
-        int pages = -1;
-        int year_of_publication = -1;
-        char isbn[14];
+        char user_input[140];
     
         printf("Please, enter the command that you want to execute\n");
-        int args_count = scanf(" %c;%49[^;];%49[^;];%d;%d;%13c", &command, name, author, &pages, &year_of_publication, isbn);
-       
-        /*
-        if (args_count != 5) {
-            printf("Invalid input. Please enter 'command;name;author;pages;year of publication' \n");
-        } else if (args_count == EOF) {
-            printf("End of input detected.\n");
-        }
-        */
+        if (fgets(user_input, sizeof(user_input), stdin) != NULL) {
+            const int res_process_command = process_command(lib, user_input);
 
-        const int res_process_command = process_command(lib, args_count, command, name, author, pages, year_of_publication, isbn);
-
-        if (res_process_command == 0) {
-            break;
+            if (res_process_command == 0) {
+                break;
+            }
         }
     }
 
