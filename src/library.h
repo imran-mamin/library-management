@@ -6,12 +6,12 @@ struct Library {
     struct Book* last_book; // Works as a tail of the linked list.
 };
 
-/* Will initialize the library with some default book. */
+/* Will initialize the library with first_book and last_book pointing to NULL. */
 struct Library* init_library();
 
-void add_book(struct Library* lib, const char* name, const char* author, int pages, int year_of_publication);
+void add_book(struct Library* lib, const char* name, const char* author, int pages, int year_of_publication, const char* isbn);
 
-void delete_book(struct Library* lib, const char* name, const char* author, int year_of_publication);
+void delete_book(struct Library* lib, const char* isbn);
 
 void show_library(struct Library* lib);
 

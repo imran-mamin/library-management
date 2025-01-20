@@ -21,7 +21,7 @@ struct Library* init_library() {
     return lib;
 }
 
-void add_book(struct Library* lib, const char* name, const char* author, int pages, int year_of_publication) {
+void add_book(struct Library* lib, const char* name, const char* author, int pages, int year_of_publication, const char* isbn) {
     struct Book* b = malloc(sizeof(struct Book));
 
     if (b == NULL) {
@@ -34,7 +34,9 @@ void add_book(struct Library* lib, const char* name, const char* author, int pag
     b->author[sizeof(b->author) - 1] = '\0';
     b->pages = pages;
     b->year_of_publication = year_of_publication;
-    
+    strncpy(b->isbn, isbn, sizeof(b->isbn) - 1);
+    b->isbn[sizeof(b->isbn) - 1] = '\0';
+
     if (lib->first_book == NULL) {
         lib->first_book = b;
         lib->last_book = b;
@@ -44,16 +46,14 @@ void add_book(struct Library* lib, const char* name, const char* author, int pag
     }
 }
 
-void delete_book(struct Library* lib, const char* name, const char* author, int year_of_publication) {
+void delete_book(struct Library* lib, const char* isbn) {
     struct Book* prev = NULL;
     struct Book* b = lib->first_book;
 
     while (b != NULL) {
-        int same_name = (strcmp(name, b->name) == 0);
-        int same_author = (strcmp(author, b->author) == 0);
-        int same_year = (year_of_publication == b->year_of_publication);
-        printf("%d, %d, %d \n", same_name, same_author, same_year);
-        if (same_name && same_author && same_year) {
+        int same_isbn = (strcmp(isbn, b->isbn) == 0);
+
+        if (same_isbn) {
             break;
         }
         
@@ -62,7 +62,7 @@ void delete_book(struct Library* lib, const char* name, const char* author, int 
     }
 
     if (b == NULL) {
-        printf("The book was not found.\n");
+        printf("The book was not found. Check that isbn was written correctly.\n");
     } else {
         // The only book in the library?
         if ((b->next == NULL) && (prev == NULL)) {
