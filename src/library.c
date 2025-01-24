@@ -31,6 +31,8 @@ void add_book(struct Library* lib, const char* name, const char* author, int pag
             fprintf(stderr, "A book with isbn: %s already exists.\n", isbn);
             return;
         }
+
+        curr = curr->next;
     }
     
     struct Book* b = malloc(sizeof(struct Book));
@@ -40,7 +42,6 @@ void add_book(struct Library* lib, const char* name, const char* author, int pag
         return;
     }
     
-
     strncpy(b->name, name, sizeof(b->name) - 1);
     b->name[sizeof(b->name) - 1] = '\0';
     strncpy(b->author, author, sizeof(b->name) - 1);
@@ -50,7 +51,7 @@ void add_book(struct Library* lib, const char* name, const char* author, int pag
     strncpy(b->isbn, isbn, sizeof(b->isbn) - 1);
     b->isbn[sizeof(b->isbn) - 1] = '\0';
     b->next = NULL;
-    
+
     if (lib->first_book == NULL) {
         lib->first_book = b;
         lib->last_book = b;
