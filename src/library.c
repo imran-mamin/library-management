@@ -27,6 +27,7 @@ void add_book(struct Library* lib, const char* name, const char* author, int pag
 
     if (b == NULL) {
         fprintf(stderr, "malloc failed.\n");
+        return;
     }
     
     strncpy(b->name, name, sizeof(b->name) - 1);
