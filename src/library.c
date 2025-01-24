@@ -49,7 +49,8 @@ void add_book(struct Library* lib, const char* name, const char* author, int pag
     b->year_of_publication = year_of_publication;
     strncpy(b->isbn, isbn, sizeof(b->isbn) - 1);
     b->isbn[sizeof(b->isbn) - 1] = '\0';
-
+    b->next = NULL;
+    
     if (lib->first_book == NULL) {
         lib->first_book = b;
         lib->last_book = b;
