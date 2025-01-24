@@ -1,4 +1,3 @@
-// TODO: Add some unique identifier for each book, for easier update and removal.
 struct Book {
     char name[50];
     char author[50];

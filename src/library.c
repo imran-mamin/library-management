@@ -13,6 +13,7 @@ struct Library* init_library() {
     
     if (lib == NULL) {
         fprintf(stderr, "malloc failed.\n");
+        return NULL;
     }
 
     lib->first_book = NULL;
