@@ -23,6 +23,16 @@ struct Library* init_library() {
 }
 
 void add_book(struct Library* lib, const char* name, const char* author, int pages, int year_of_publication, const char* isbn) {
+    // Ensure that there is no books with the same isbn.
+    struct Book* curr = lib->first_book;
+
+    while (curr != NULL) {
+        if (strcmp(curr->isbn, isbn) == 0) {
+            fprintf(stderr, "A book with isbn: %s already exists.\n", isbn);
+            return;
+        }
+    }
+    
     struct Book* b = malloc(sizeof(struct Book));
 
     if (b == NULL) {
@@ -30,6 +40,7 @@ void add_book(struct Library* lib, const char* name, const char* author, int pag
         return;
     }
     
+
     strncpy(b->name, name, sizeof(b->name) - 1);
     b->name[sizeof(b->name) - 1] = '\0';
     strncpy(b->author, author, sizeof(b->name) - 1);

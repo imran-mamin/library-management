@@ -72,8 +72,7 @@ int process_command(struct Library* lib, char* user_input) {
 
             strncpy(isbn, token, sizeof(isbn) - 1);
             isbn[13] = '\0';
-            
-            printf("\nAdding a book was successful.\n");
+
             add_book(lib, name, author, pages, year_of_publication, isbn);
             break;
         case 'D': // Delete book command.
