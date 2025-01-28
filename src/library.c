@@ -98,16 +98,20 @@ void delete_book(struct Library* lib, const char* isbn) {
 }
 
 void show_library(struct Library* lib) {
-    printf("The library:\n");
+    printf("The library:\n\n");
 
     struct Book* b = lib->first_book;
     
+    if (b == NULL) {
+        printf("The library is empty.\n");
+        return;
+    }
+    
     while (b != NULL) {
-        printf("%s --> ", b->name);
+        printf("Name: %s, Author: %s, Pages: %d, Year: %d, ISBN: %s\n",
+                b->name, b->author, b->pages, b->year_of_publication, b->isbn);
         b = b->next;
     }
-
-    printf("NULL\n");
 }
 
 void free_memory(struct Library* lib) {
