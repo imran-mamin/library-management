@@ -1,6 +1,10 @@
 #ifndef LIBRARY_H_INCLUDED
 #define LIBRARY_H_INCLUDED
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "book.h"
 
 // Works as a linked list to store books.
@@ -19,5 +23,9 @@ void delete_book(struct Library* lib, const char* isbn);
 void show_library(struct Library* lib);
 
 void free_memory(struct Library* lib);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* LIBRARY_H_INCLUDED */
