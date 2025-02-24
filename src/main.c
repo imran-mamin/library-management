@@ -26,7 +26,7 @@ int process_command(struct Library* lib, char* user_input) {
 
     switch (c)
     {
-        case 'A': // Add book command.
+        case 'A': {// Add book command.
             char name[NAME_SIZE];
             token = strtok(NULL, s);
             
@@ -75,6 +75,7 @@ int process_command(struct Library* lib, char* user_input) {
 
             add_book(lib, name, author, pages, year_of_publication, isbn);
             break;
+        }
         case 'D': // Delete book command.
             token = strtok(NULL, s);
             if (token == NULL) {
