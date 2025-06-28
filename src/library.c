@@ -107,10 +107,17 @@ void show_library(struct Library* lib) {
         return;
     }
     
+    int index = 1;
+
     while (b != NULL) {
-        printf("Name: %s, Author: %s, Pages: %d, Year: %d, ISBN: %s\n",
-                b->name, b->author, b->pages, b->year_of_publication, b->isbn);
+        printf("## Book %d ##\n", index);
+        printf("Name: %s\n", b->name);
+        printf("Author: %s\n", b->author);
+        printf("Pages: %d\n", b->pages);
+        printf("Year: %d\n", b->year_of_publication);
+        printf("ISBN: %s\n\n", b->isbn);
         b = b->next;
+        ++index;
     }
 }
 
